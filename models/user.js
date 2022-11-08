@@ -57,13 +57,13 @@ class User {
    * [{username, first_name, last_name, phone}, ...] */
 
   static async all() { 
-    const results = await db.query('SELECT username, first_name, last_name, phone FROM users WHERE username=$1', [username]);
+    const results = await db.query('SELECT username, first_name, last_name, phone FROM users');
 
-    if(!results.rows[0]){
+    if(results.rows.length === 0){
       throw new ExpressError(`User: ${username} not found`, 404);
     };
 
-    return results.rows[0];
+    return results.rows;
   }
 
   /** Get: get user by username
